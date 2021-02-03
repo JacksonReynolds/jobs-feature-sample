@@ -16,14 +16,19 @@
             }
         },
         mounted () {
-            this.fetchJobs()
+            localStorage.jobs ? null : this.fetchJobs()
         },
         methods: {
             fetchJobs() {
                 let options = {
 
                 }
-                fetch()
+                fetch('https://localhost:3000/jobs', options)
+                  .then(r => r.json())
+                  .then(r => localStorage.jobs = r.jobs)
+                  .catch(() => {
+                      // something went wrong, tell the user
+                  })
             }
         },
         computed: {
