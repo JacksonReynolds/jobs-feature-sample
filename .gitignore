@@ -6,23 +6,23 @@
 
 
 # local env files
-./jobs-frtonend/.env.local
+./jobs-frontend/.env.local
 ./jobs-frtonend/.env.*.local
 
 # Log files
-./jobs-frtonend/npm-debug.log*
-./jobs-frtonend/yarn-debug.log*
-./jobs-frtonend/yarn-error.log*
-./jobs-frtonend/pnpm-debug.log*
+./jobs-frontend/npm-debug.log*
+./jobs-frontend/yarn-debug.log*
+./jobs-frontend/yarn-error.log*
+./jobs-frontend/pnpm-debug.log*
 
 # Editor directories and files
-./jobs-frtonend/.idea
-./jobs-frtonend/.vscode
-./jobs-frtonend/*.suo
-./jobs-frtonend/*.ntvs*
-./jobs-frtonend/*.njsproj
-./jobs-frtonend/*.sln
-./jobs-frtonend/*.sw?
+./jobs-frontend/.idea
+./jobs-frontend/.vscode
+./jobs-frontend/*.suo
+./jobs-frontend/*.ntvs*
+./jobs-frontend/*.njsproj
+./jobs-frontend/*.sln
+./jobs-frontend/*.sw?
 
 ## backend
 
