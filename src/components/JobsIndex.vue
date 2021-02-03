@@ -1,6 +1,8 @@
 <template>
-    <div>
-
+    <div id='jobs-index'>
+        <ul>
+            <li v-for="job in jobs" :key="job.name">{{job.name}}</li>
+        </ul>
     </div>
 </template>
 
@@ -9,6 +11,7 @@
     import ShowJob from './ShowJob'
 
     export default {
+        name: 'JobsIndex',
         components: {EditJob, ShowJob},
         data () {
             return {
@@ -20,14 +23,11 @@
         },
         methods: {
             fetchJobs() {
-                let options = {
-
-                }
-                fetch('https://localhost:3000/jobs', options)
+                fetch('https://localhost:3000/jobs')
                   .then(r => r.json())
                   .then(r => localStorage.jobs = r.jobs)
                   .catch(() => {
-                      // something went wrong, tell the user
+                      alert('Please check your server, reload, and try again')
                   })
             }
         },
