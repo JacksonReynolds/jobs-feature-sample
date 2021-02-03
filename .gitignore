@@ -1,0 +1,23 @@
+./jobs-frtonend/.DS_Store
+./jobs-frtonend/node_modules
+./jobs-frtonend//dist
+
+
+# local env files
+./jobs-frtonend/.env.local
+./jobs-frtonend/.env.*.local
+
+# Log files
+./jobs-frtonend/npm-debug.log*
+./jobs-frtonend/yarn-debug.log*
+./jobs-frtonend/yarn-error.log*
+./jobs-frtonend/pnpm-debug.log*
+
+# Editor directories and files
+./jobs-frtonend/.idea
+./jobs-frtonend/.vscode
+./jobs-frtonend/*.suo
+./jobs-frtonend/*.ntvs*
+./jobs-frtonend/*.njsproj
+./jobs-frtonend/*.sln
+./jobs-frtonend/*.sw?
