@@ -36,24 +36,24 @@
 ./jobs-backend//.bundle
 
 # Ignore the default SQLite database.
-./jobs-backend//db/*.sqlite3
-./jobs-backend//db/*.sqlite3-*
+./jobs-backend/db/*.sqlite3
+./jobs-backend/db/*.sqlite3-*
 
 # Ignore all logfiles and tempfiles.
-./jobs-backend//log/*
-./jobs-backend//tmp/*
+./jobs-backend/log/*
+./jobs-backend/tmp/*
 ./jobs-backend/!/log/.keep
 ./jobs-backend/!/tmp/.keep
 
 # Ignore pidfiles, but keep the directory.
-./jobs-backend//tmp/pids/*
+./jobs-backend/tmp/pids/*
 ./jobs-backend/!/tmp/pids/
 ./jobs-backend/!/tmp/pids/.keep
 
 # Ignore uploaded files in development.
-./jobs-backend//storage/*
+./jobs-backend/storage/*
 ./jobs-backend/!/storage/.keep
 ./jobs-backend/.byebug_history
 
 # Ignore master key for decrypting credentials and more.
-./jobs-backend//config/master.key
+./jobs-backend/config/master.key
