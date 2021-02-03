@@ -16,13 +16,13 @@
 ./jobs-frontend/pnpm-debug.log*
 
 # Editor directories and files
-./jobs-frontend/.idea
-./jobs-frontend/.vscode
-./jobs-frontend/*.suo
-./jobs-frontend/*.ntvs*
-./jobs-frontend/*.njsproj
-./jobs-frontend/*.sln
-./jobs-frontend/*.sw?
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
 
 ## backend
 
