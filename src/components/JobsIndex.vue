@@ -15,8 +15,16 @@
                 jobs: []
             }
         },
+        mounted () {
+            this.fetchJobs()
+        },
         methods: {
+            fetchJobs() {
+                let options = {
 
+                }
+                fetch()
+            }
         },
         computed: {
 
