@@ -34,5 +34,10 @@
 </script>
 
 <style scoped>
-
+.show-job {
+  border: 3px solid red;
+  border-radius: 5px;
+  margin: 5px;
+  padding: 5px;
+}
 </style>
