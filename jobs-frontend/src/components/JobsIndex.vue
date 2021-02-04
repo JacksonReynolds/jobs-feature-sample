@@ -2,8 +2,8 @@
   <div id='jobs-index'>
     <ul>
       <li v-for="job in jobs" :key="job.name">
-        Title: {{job.name}}<br>
-        <ul>Skiils: <br>
+        Title: {{job.title}}<br>
+        <ul>Skills:
           <li v-for="skill in job.skills" :key="skill">{{skill}}</li>
         </ul><br>
         Description: {{job.description}}
@@ -13,20 +13,38 @@
 </template>
 
 <script>
-  import EditJob from './EditJob'
-  import ShowJob from './ShowJob'
+  // import EditJob from './EditJob'
+  // import ShowJob from './ShowJob'
   export default {
     name: 'JobsIndex',
-    components: {EditJob, ShowJob},
+    // components: {EditJob, ShowJob},
     data () {
       return {
         jobs: [{
           title: "Full-Stack Engineer",
           skills: ["JavaScript", "Ruby", "Rails", "Vue.js", "HTML", "CSS"],
-          description: "As a Full Stack Engineer, you will aid us in innovating the world of connecting people with a job that they love."
+          description: `As a Full Stack Engineer, you will aid us in innovating the world
+                        of connecting people with a job that they love.`
         },
         {
-
+          title: "Architect",
+          skills: ["CAD", "Revit", "Residential and Commericla Design", "Building Codes"],
+          description: `This position is excellent for architects seeking career growth within the 
+                        firm, design opportunities in a variety of project types, and extensive client contact.`
+        },
+        {
+          title: "Real Estate Agent",
+          skills: ["Market Analysis", "Salespersonship", "Networking", "Presentation"],
+          description: `A Real Estate Agent plays an essential role in a real estate transaction.
+                        In this role, you will advocate for your clients by understanding their 
+                        preferences, representing them when negotiating a sale and assisting them 
+                        with every detail of their home purchase and sale.`
+        },
+        {
+          title: "Fitness Trainer",
+          skills: [""],
+          description: `Instruct members and guests using up to date techniques and methods to ensure
+                        proper use of all exercise equipment as well as other methods of exercise.`
         }]
       }
     },
