@@ -1,5 +1,9 @@
 <template>
   <div id='jobs-index'>
+    <header id="jobs-index-header">
+      <h1>Jobs Index</h1>
+      <input>
+    </header>
     <ul>
       <li v-for="job in jobs" :key="job.name">
         Title: {{job.title}}<br>
@@ -66,5 +70,19 @@
   }
 </script>
 
-<style lang="sass" scoped>
+<style scoped>
+#jobs-index-header {
+  display: flex;
+  justify-content: space-between;
+  font-family: Arvo;
+  
+}
+#jobs-index {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  background-color: aqua;
+  height: 100%;
+  border-radius: 15px;
+}
 </style>
