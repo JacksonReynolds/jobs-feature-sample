@@ -19,21 +19,21 @@
     },
     data() {
       return {
-        id: this.job.id,
-        title: this.job.title,
-        skills: this.job.skills,
+        id: (this.job ? this.job.id : ''),
+        title: (this.job ? this.job.title : ''),
+        skills: (this.job ? this.job.skills : ''),
         newSkill: '',
-        description: this.job.description,
+        description: (this.job ? this.job.description : ''),
       }
     },
     methods: {
       saveJob() {
         // add skill if new field is filled
-        if (this.newSkill.trim() != '') {
-          this.skills.push(this.newSkill)
-        }
+        // if (this.newSkill.trim() != '') {
+        //   this.skills.push(this.newSkill)
+        // }
         // filter out blank skill fields
-        this.skills = this.skills.filter(s => s.trim() != '')
+        // this.skills = this.skills.filter(s => s.trim() != '')
         // emit job-updated, passing updated fields
         this.$emit('job-updated', this.updatedJob)
       },
@@ -44,7 +44,7 @@
     },
     computed: {
       updatedJob({id, title, skills, description}) {
-        return {id, title, skills, description}
+        return {id, title, skills: skills.filter(s => s.trim() != ''), description}
       }
     }
   }
