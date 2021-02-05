@@ -3,10 +3,11 @@
     <p>Title: <input type="text" v-model="title"></p>
       <p>Skills:</p>
       <ul>
-        <li v-for="(skill, index) in skills" :key="skill"><input type="text" v-model="skills[index]"><button @click="() => deleteSkill(skill)"></button></li>
-        <li id="new"><input type="text" v-model="newSkill"></li>  
+        <li v-for="(skill, index) in skills" :key="skill"><input type="text" v-model="skills[index]"><button :id="skill" @click="(e) => deleteSkill(e)">X</button></li>
+        <li id="new"><input @change="addSkill" type="text" v-model="newSkill"></li>  
       </ul>
-      <p>Description: <input type="text" v-model="description"></p>
+      <p>Description: <textarea type="text" v-model="description"></textarea></p>
+      <button @click="saveJob">Save</button>
   </div>
 </template>
 
@@ -16,7 +17,7 @@
     props: {
       job: Object
     },
-    data () {
+    data() {
       return {
         id: this.job.id,
         title: this.job.title,
@@ -26,8 +27,28 @@
       }
     },
     methods: {
-      deleteSkill(skill) {
-        console.log(`${skill} deleted...?`)
+      saveJob() {
+        // add skill if new field is filled
+        if (this.newSkill.trim() != '') {
+          this.skills.push(this.newSkill)
+        }
+        // filter out blank skill fields
+        this.skills = this.skills.filter(s => s.trim() != '')
+        // emit job-updated, passing updated fields
+        //this.$emit('job-updated', this.$data())
+        console.log(this.updatedJob)
+      },
+      addSkill() {
+        this.skills.push(this.newSkill)
+        this.newSkill = ''
+      },
+      deleteSkill(e) {
+        console.log(e)
+      }
+    },
+    computed: {
+      updatedJob({id, title, skills, description}) {
+        return {id, title, skills, description}
       }
     }
   }
