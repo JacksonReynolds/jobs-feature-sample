@@ -3,7 +3,7 @@
     <p>Title: <input type="text" v-model="title"></p>
       <p>Skills:</p>
       <ul>
-        <li v-for="(skill, index) in skills" :key="skill"><input type="text" v-model="skills[index]"><button :id="skill" @click="(e) => deleteSkill(e)">X</button></li>
+        <li v-for="(skill, index) in skills" :key="skill"><input type="text" v-model="skills[index]"></li>
         <li id="new"><input @change="addSkill" type="text" v-model="newSkill"></li>  
       </ul>
       <p>Description: <textarea cols="100" rows="3" v-model="description"></textarea></p>
@@ -40,9 +40,6 @@
       addSkill() {
         this.skills.push(this.newSkill)
         this.newSkill = ''
-      },
-      deleteSkill(e) {
-        console.log(e)
       }
     },
     computed: {
