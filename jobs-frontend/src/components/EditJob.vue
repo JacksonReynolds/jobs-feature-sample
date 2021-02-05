@@ -28,23 +28,26 @@
     },
     methods: {
       saveJob() {
-        // add skill if new field is filled
-        // if (this.newSkill.trim() != '') {
-        //   this.skills.push(this.newSkill)
-        // }
         // filter out blank skill fields
-        // this.skills = this.skills.filter(s => s.trim() != '')
+        this.skills = this.skills.filter(s => s.trim() != '')
         // emit job-updated, passing updated fields
         this.$emit('job-updated', this.updatedJob)
       },
       addSkill() {
-        this.skills.push(this.newSkill)
-        this.newSkill = ''
+        if (this.newSkill != '') {
+          this.skills.push(this.newSkill)
+          this.newSkill = ''
+        }
       }
     },
     computed: {
       updatedJob({id, title, skills, description}) {
         return {id, title, skills: skills.filter(s => s.trim() != ''), description}
+      }
+    },
+    watch: {
+      skills() {
+        this.skills.filter(s => s.trim() != '')
       }
     }
   }
