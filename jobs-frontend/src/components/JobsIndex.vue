@@ -7,6 +7,7 @@
         <p v-if="isFiltered">Filtering on Skills, showing {{filteredJobs.length}} of {{jobs.length}} jobs.</p>
       </div>
     </header>
+    <EditJob />
     <template v-for="job in filteredJobs">
       <EditJob v-if="job.editing" @job-updated="updateJob" :job="job" :key="job.id"/>
       <ShowJob v-else @edit-job="toggleEditForm" :job="job" :key="job.id"/>
