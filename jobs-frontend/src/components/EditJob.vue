@@ -34,7 +34,7 @@
 </script>
 
 <style scoped>
-.show-job {
+.edit-job {
   border: 3px solid red;
   border-radius: 5px;
   margin: 5px;
