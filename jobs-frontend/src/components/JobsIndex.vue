@@ -33,7 +33,7 @@
         {
           id: 2,
           title: "Architect",
-          skills: ["CAD", "Revit", "Residential and Commericla Design", "Building Codes"],
+          skills: ["CAD", "Revit", "Residential and Commercial Design", "Building Codes"],
           description: "This position is excellent for architects seeking career growth within the firm, design opportunities in a variety of project types, and extensive client contact.",
           editing: false
         },
