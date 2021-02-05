@@ -67,9 +67,9 @@
             alert('Please check your server, reload, and try again')
           })
       },
-      toggleEditForm(e) {
-        console.log(e)
-        this.jobs.
+      toggleEditForm(id) {
+        console.log(id)
+        this.jobs.find(j => j.id === id).editing = true
       }
     },
     computed: {
