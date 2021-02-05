@@ -6,7 +6,7 @@
         <li v-for="(skill, index) in skills" :key="skill"><input type="text" v-model="skills[index]"><button :id="skill" @click="(e) => deleteSkill(e)">X</button></li>
         <li id="new"><input @change="addSkill" type="text" v-model="newSkill"></li>  
       </ul>
-      <p>Description: <textarea type="text" v-model="description"></textarea></p>
+      <p>Description: <textarea cols="100" rows="3" v-model="description"></textarea></p>
       <button @click="saveJob">Save</button>
   </div>
 </template>
@@ -35,8 +35,7 @@
         // filter out blank skill fields
         this.skills = this.skills.filter(s => s.trim() != '')
         // emit job-updated, passing updated fields
-        //this.$emit('job-updated', this.$data())
-        console.log(this.updatedJob)
+        this.$emit('job-updated', this.updatedJob)
       },
       addSkill() {
         this.skills.push(this.newSkill)
