@@ -19,9 +19,9 @@
     },
     data() {
       return {
-        id: (this.job ? this.job.id : ''),
+        id: (this.job ? this.job.id : null),
         title: (this.job ? this.job.title : ''),
-        skills: (this.job ? this.job.skills : ''),
+        skills: (this.job ? this.job.skills : []),
         newSkill: '',
         description: (this.job ? this.job.description : ''),
       }
