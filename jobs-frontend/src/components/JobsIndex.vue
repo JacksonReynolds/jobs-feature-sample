@@ -5,7 +5,7 @@
       <input>
     </header>
     <template v-for="job in jobs">
-      <EditJob v-if="job.editing" :job="job" :key="job.id"/>
+      <EditJob v-if="job.editing" @job-updated="updateJob" :job="job" :key="job.id"/>
       <ShowJob v-else @edit-job="toggleEditForm" :job="job" :key="job.id"/>
     </template>
   </div>
@@ -23,40 +23,34 @@
           id: 1,
           title: "Full-Stack Engineer",
           skills: ["JavaScript", "Ruby", "Rails", "Vue.js", "HTML", "CSS"],
-          description: `As a Full Stack Engineer, you will aid us in innovating the world
-                        of connecting people with a job that they love.`,
+          description: "As a Full Stack Engineer, you will aid us in innovating the world of connecting people with a job that they love.",
           editing: false
         },
         {
           id: 2,
           title: "Architect",
           skills: ["CAD", "Revit", "Residential and Commericla Design", "Building Codes"],
-          description: `This position is excellent for architects seeking career growth within the 
-                        firm, design opportunities in a variety of project types, and extensive client contact.`,
+          description: "This position is excellent for architects seeking career growth within the firm, design opportunities in a variety of project types, and extensive client contact.",
           editing: false
         },
         {
           id: 3,
           title: "Real Estate Agent",
           skills: ["Market Analysis", "Salespersonship", "Networking", "Presentation"],
-          description: `A Real Estate Agent plays an essential role in a real estate transaction.
-                        In this role, you will advocate for your clients by understanding their 
-                        preferences, representing them when negotiating a sale and assisting them 
-                        with every detail of their home purchase and sale.`,
+          description: "A Real Estate Agent plays an essential role in a real estate transaction. In this role, you will advocate for your clients by understanding their preferences, representing them when negotiating a sale and assisting them with every detail of their home purchase and sale.",
           editing: false
         },
         {
           id: 4,
           title: "Fitness Trainer",
           skills: [""],
-          description: `Instruct members and guests using up to date techniques and methods to ensure
-                        proper use of all exercise equipment as well as other methods of exercise.`,
+          description: "Instruct members and guests using up to date techniques and methods to ensure proper use of all exercise equipment as well as other methods of exercise.",
           editing: false
         }]
       }
     },
     // mounted () {
-    //   localStorage.jobs ? null : this.fetchJobs()
+    //   localStorage.jobs ? this.jobs = localStorage.jobs : this.fetchJobs()
     // },
     methods: {
       fetchJobs() {
@@ -67,9 +61,23 @@
             alert('Please check your server, reload, and try again')
           })
       },
+      fetchUpdatedJob(job) {
+        let options = {
+          method: "PATCH",
+          headers: {"Content-Type": 'application/json'},
+          body: JSON.stringify(job)
+        }
+        fetch(`https://localhost:3000/jobs/${job.id}`, options)
+          .then(r => r.json())
+          .then(r => console.log(r))
+      },
       toggleEditForm(id) {
-        console.log(id)
-        this.jobs.find(j => j.id === id).editing = true
+        let job = this.jobs.find(j => j.id === id)
+        job.editing = !job.editing
+      },
+      updateJob(job) {
+        this.toggleEditForm(job.id)
+        // this.fetchUpdatedJob(job)
       }
     },
     computed: {
