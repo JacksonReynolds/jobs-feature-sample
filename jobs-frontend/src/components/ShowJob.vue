@@ -1,11 +1,11 @@
 <template>
     <div class="show-job" :id="id">
-      <p>Title: {{title}}</p>
+      <p>Title: {{job.title}}</p>
       <p>Skills:</p>
       <ul>
-        <li v-for="skill in skills" :key="skill">{{skill}}</li>  
+        <li v-for="skill in job.skills" :key="skill">{{skill}}</li>  
       </ul>
-      <p>Description: {{description}}</p>
+      <p>Description: {{job.description}}</p>
       <button @click="editJob">Edit</button>
       <button @click="deleteJob">Delete</button>
     </div>
@@ -16,14 +16,6 @@
         name: "JobShow",
         props: {
           job: Object
-        },
-        data () {
-          return {
-            id: this.job.id,
-            title: this.job.title,
-            skills: this.job.skills,
-            description: this.job.description
-          }
         },
         methods: {
           editJob() {
