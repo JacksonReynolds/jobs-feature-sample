@@ -1,5 +1,5 @@
 <template>
-    <div class="show-job" :id="id">
+    <div class="show-job" :id="job.id">
       <p>Title: {{job.title}}</p>
       <p>Skills:</p>
       <ul>
