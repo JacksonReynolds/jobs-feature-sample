@@ -2,9 +2,12 @@
   <div id='jobs-index'>
     <header id="jobs-index-header">
       <h1>Jobs Index</h1>
-      <input>
+      <div>
+        <input v-model="filterTerm" @input="filterJobs">
+        <p v-if="isFiltered">Filtering on Skills, showing {{filteredJobs.length}} of {{jobs.length}} jobs.</p>
+      </div>
     </header>
-    <template v-for="job in jobs">
+    <template v-for="job in filteredJobs">
       <EditJob v-if="job.editing" @job-updated="updateJob" :job="job" :key="job.id"/>
       <ShowJob v-else @edit-job="toggleEditForm" :job="job" :key="job.id"/>
     </template>
@@ -19,6 +22,7 @@
     components: {ShowJob, EditJob},
     data () {
       return {
+        filterTerm: '',
         jobs: [{
           id: 1,
           title: "Full-Stack Engineer",
@@ -43,7 +47,7 @@
         {
           id: 4,
           title: "Fitness Trainer",
-          skills: [""],
+          skills: ["Knowledge of Anatomy", "Record Keeping", "Principles of Nutrition", "Affective Exercises", "Personal Training Techniques"],
           description: "Instruct members and guests using up to date techniques and methods to ensure proper use of all exercise equipment as well as other methods of exercise.",
           editing: false
         }]
@@ -70,6 +74,7 @@
         fetch(`https://localhost:3000/jobs/${job.id}`, options)
           .then(r => r.json())
           .then(r => console.log(r))
+          .catch(error => console.log(error))
       },
       toggleEditForm(id) {
         let job = this.jobs.find(j => j.id === id)
@@ -81,6 +86,13 @@
       }
     },
     computed: {
+      filteredJobs() {
+        return (this.isFiltered ? this.jobs.filter(j => j.skills.find(s => s.toLowerCase().includes(this.filterTerm.toLowerCase()))) 
+                                : this.jobs)
+      },
+      isFiltered() {
+        return (this.filterTerm.trim() != '')
+      }
     }
   }
 </script>
@@ -94,7 +106,7 @@
   padding: 10px;
 }
 
-header input {
+header > input {
   height: 33%;
 }
 
