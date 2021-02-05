@@ -3,7 +3,7 @@
     <header id="jobs-index-header">
       <h1>Jobs Index</h1>
       <div>
-        <input v-model="filterTerm" @input="filterJobs">
+        Filter:<input v-model="filterTerm" @input="filterJobs">
         <p v-if="isFiltered">Filtering on Skills, showing {{filteredJobs.length}} of {{jobs.length}} jobs.</p>
       </div>
     </header>
