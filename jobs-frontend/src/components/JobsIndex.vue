@@ -50,16 +50,19 @@
           body: JSON.stringify(job)
         }
         fetch(`http://localhost:3000/jobs/${job.id}`, options)
-          .then(r => this.serverError(r))
+          .then(r => r.json())
           .then(job => {
-            // update data with new job
-            let index = this.jobs.findIndex(j => j.id === job.id)
-            this.jobs = [...this.jobs.slice(0,index), job, ...this.jobs.slice(index+1)]
+            if (!job.msg) {
+              // update data with new job
+              let index = this.jobs.findIndex(j => j.id === job.id)
+              this.jobs = [...this.jobs.slice(0,index), job, ...this.jobs.slice(index+1)]
 
-            this.updateCache()
-            this.toggleEditForm(null)
-            }) 
-          .catch(error => console.error(error))
+              this.updateCache()
+              this.toggleEditForm(null)
+            } else {
+              alert(job.msg)
+            }
+            })
       },
       fetchNewJob(job) {
         let options = {
@@ -70,8 +73,12 @@
         fetch('http://localhost:3000/jobs', options)
           .then(r => r.json())
           .then(job => {
-            this.jobs.unshift(job)
-            this.updateCache()
+            if (!job.msg) {
+              this.jobs.unshift(job)
+              this.updateCache()
+            } else {
+              alert(job.msg)
+            }
             })
       },
       toggleEditForm(id) {
@@ -86,13 +93,6 @@
       },
       updateCache() {
         localStorage.jobs = JSON.stringify(this.jobs)
-      },
-      serverError(r) {
-        if (r.ok) {
-          return r.json()
-        } else {
-          throw new Error(r)
-        }
       }
     },
     computed: {
