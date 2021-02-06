@@ -21,6 +21,15 @@ class JobsController < ApplicationController
     end
   end
 
+  def destroy
+    job = Job.find_by(id: params[:job][:id])
+    if job.destroy
+      render json: {success: true}, :status => 200
+    else
+      render json: {msg: 'Please delete a valid job'}, :status => 500
+    end
+  end
+
   private
 
   def job_params
