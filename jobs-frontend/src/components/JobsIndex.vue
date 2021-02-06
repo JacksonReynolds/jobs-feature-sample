@@ -50,7 +50,13 @@
         }
         fetch(`http://localhost:3000/jobs/${job.id}`, options)
           .then(r => r.json())
-          .then(r => console.log(r))
+          .then(job => {
+            console.log(job)
+            let index = this.jobs.findIndex(j => j.id === job.id)
+            this.jobs = [...this.jobs.slice(0,index), job, ...this.jobs.slice(index+1)]
+            this.updateCache()
+            this.toggleEditForm(job.id)
+            })
           .catch(error => console.log(error))
       },
       fetchNewJob(job) {
@@ -69,11 +75,13 @@
       },
       updateJob(job) {
         if (job.id) {
-          this.toggleEditForm(job.id)
           this.fetchUpdatedJob(job)
         } else {
           this.fetchNewJob(job)
         }
+      },
+      updatecache() {
+        localStorage.jobs = this.jobs
       }
     },
     computed: {
