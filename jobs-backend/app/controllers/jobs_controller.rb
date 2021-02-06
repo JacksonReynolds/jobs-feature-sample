@@ -8,7 +8,7 @@ class JobsController < ApplicationController
     if job.save
       render json: job, :status => 201
     else
-      render json: {msg: job.errors.full_messages.join}, :status => 500
+      render json: {msg: job.errors.full_messages.join(', ')}, :status => 500
     end
   end
 
@@ -17,7 +17,7 @@ class JobsController < ApplicationController
     if job.update(job_params)
       render json: job, :status => 200
     else
-      render json: 
+      render json: {msg: job.errors.full_messages.join(', ')}, :status => 500
     end
   end
 
