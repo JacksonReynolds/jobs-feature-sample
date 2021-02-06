@@ -12,9 +12,12 @@
 
 ActiveRecord::Schema.define(version: 2021_02_03_223540) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "jobs", force: :cascade do |t|
     t.string "title"
-    t.string "skills"
+    t.string "skills", array: true
     t.string "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
