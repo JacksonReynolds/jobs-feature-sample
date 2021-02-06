@@ -9,7 +9,7 @@
     </header>
     <EditJob />
     <template v-for="job in filteredJobs">
-      <EditJob v-if="job.editing" @job-updated="updateJob" :job="job" :key="job.id"/>
+      <EditJob v-if="job.id === editingJob" @job-updated="updateJob" :job="job" :key="job.id"/>
       <ShowJob v-else @edit-job="toggleEditForm" :job="job" :key="job.id"/>
     </template>
   </div>
@@ -24,6 +24,7 @@
     data () {
       return {
         filterTerm: '',
+        editingJob: null,
         jobs: []
       }
     },
@@ -35,8 +36,8 @@
         fetch('http://localhost:3000/jobs')
           .then(r => r.json())
           .then(jobs => {
-            localStorage.jobs = jobs
             this.jobs = jobs
+            this.updateCache()
             })
           .catch(() => {
             alert(`Please check your server, reload, and try again`)
@@ -49,15 +50,16 @@
           body: JSON.stringify(job)
         }
         fetch(`http://localhost:3000/jobs/${job.id}`, options)
-          .then(r => r.json())
+          .then(r => this.serverError(r))
           .then(job => {
-            console.log(job)
+            // update data with new job
             let index = this.jobs.findIndex(j => j.id === job.id)
             this.jobs = [...this.jobs.slice(0,index), job, ...this.jobs.slice(index+1)]
+
             this.updateCache()
-            this.toggleEditForm(job.id)
-            })
-          .catch(error => console.log(error))
+            this.toggleEditForm(null)
+            }) 
+          .catch(error => console.error(error))
       },
       fetchNewJob(job) {
         let options = {
@@ -70,8 +72,7 @@
           .then(job => console.log(job))
       },
       toggleEditForm(id) {
-        let job = this.jobs.find(j => j.id === id)
-        job.editing = !job.editing
+        this.editingJob = id
       },
       updateJob(job) {
         if (job.id) {
@@ -80,8 +81,15 @@
           this.fetchNewJob(job)
         }
       },
-      updatecache() {
-        localStorage.jobs = this.jobs
+      updateCache() {
+        localStorage.jobs = JSON.stringify(this.jobs)
+      },
+      serverError(r) {
+        if (r.ok) {
+          return r.json()
+        } else {
+          throw new Error(r)
+        }
       }
     },
     computed: {
