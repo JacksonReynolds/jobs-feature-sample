@@ -7,9 +7,9 @@
         <p v-if="isFiltered">Filtering on Skills, showing {{filteredJobs.length}} of {{jobs.length}} jobs.</p>
       </div>
     </header>
-    <EditJob />
+    <EditJob @job-updated="fetchNewJob"/>
     <template v-for="job in filteredJobs">
-      <EditJob v-if="job.id === editingJob" @job-updated="updateJob" :job="job" :key="job.id"/>
+      <EditJob v-if="job.id === editingJob" @job-updated="fetchUpdatedJob" :job="job" :key="job.id"/>
       <ShowJob v-else @edit-job="toggleEditForm" :job="job" :key="job.id"/>
     </template>
   </div>
@@ -69,7 +69,10 @@
         }
         fetch('http://localhost:3000/jobs', options)
           .then(r => r.json())
-          .then(job => console.log(job))
+          .then(job => {
+            this.jobs.unshift(job)
+            this.updateCache()
+            })
       },
       toggleEditForm(id) {
         this.editingJob = id

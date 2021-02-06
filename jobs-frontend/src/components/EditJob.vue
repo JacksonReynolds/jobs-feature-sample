@@ -1,13 +1,15 @@
 <template>
   <div class="edit-job" :id="id">
-    <p>Title: <input type="text" v-model="title"></p>
+    <form @submit.prevent="saveJob" action="#">
+      <p>Title: <input type="text" v-model="title"></p>
       <p>Skills:</p>
       <ul>
         <li v-for="(skill, index) in skills" :key="index"><input type="text" v-model="skills[index]"></li>
         <li id="new"><input @change="addSkill" type="text" v-model="newSkill"></li>  
       </ul>
       <p>Description: <textarea cols="100" rows="3" v-model="description"></textarea></p>
-      <button @click="saveJob">Save</button>
+      <input type="submit" value="Save">
+    </form>
   </div>
 </template>
 
@@ -32,12 +34,23 @@
         this.skills = this.skills.filter(s => s.trim() != '')
         // emit job-updated, passing updated fields
         this.$emit('job-updated', this.updatedJob)
+        // reset form if new job
+        if (!this.id) {
+          this.resetFields()
+        }
       },
       addSkill() {
         if (this.newSkill != '') {
           this.skills.push(this.newSkill)
           this.newSkill = ''
         }
+      },
+      resetFields() {
+        this.id = null
+        this.title = ''
+        this.skills = []
+        this.newSkill = ''
+        this.description = ''
       }
     },
     computed: {
