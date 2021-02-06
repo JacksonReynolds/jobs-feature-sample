@@ -28,7 +28,7 @@
       }
     },
     mounted () {
-      localStorage.jobs ? this.jobs = localStorage.jobs : this.fetchJobs()
+      localStorage.jobs ? this.jobs = JSON.parse(localStorage.jobs) : this.fetchJobs()
     },
     methods: {
       fetchJobs() {
@@ -36,11 +36,11 @@
           .then(r => r.json())
           .then(jobs => {
             console.log(jobs)
-            // localStorage.jobs = jobs
-            // this.jobs = jobs
+            localStorage.jobs = jobs
+            this.jobs = jobs
             })
-          .catch(({msg}) => {
-            alert(`Please check your server, reload, and try again, ${msg}`)
+          .catch(() => {
+            alert(`Please check your server, reload, and try again`)
           })
       },
       fetchUpdatedJob(job) {
@@ -54,13 +54,27 @@
           .then(r => console.log(r))
           .catch(error => console.log(error))
       },
+      fetchNewJob(job) {
+        let options = {
+          method: 'POST',
+          headers: {"Content-Type": 'application/json'},
+          body: JSON.stringify(job)
+        }
+        fetch('http://localhost:3000/jobs', options)
+          .then(r => r.json())
+          .then(job => console.log(job))
+      },
       toggleEditForm(id) {
         let job = this.jobs.find(j => j.id === id)
         job.editing = !job.editing
       },
       updateJob(job) {
-        this.toggleEditForm(job.id)
-        // this.fetchUpdatedJob(job)
+        if (job.id) {
+          this.toggleEditForm(job.id)
+          this.fetchUpdatedJob(job)
+        } else {
+          this.fetchNewJob(job)
+        }
       }
     },
     computed: {
