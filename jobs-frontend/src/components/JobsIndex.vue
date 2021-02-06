@@ -35,7 +35,6 @@
         fetch('http://localhost:3000/jobs')
           .then(r => r.json())
           .then(jobs => {
-            console.log(jobs)
             localStorage.jobs = jobs
             this.jobs = jobs
             })
@@ -49,7 +48,7 @@
           headers: {"Content-Type": 'application/json'},
           body: JSON.stringify(job)
         }
-        fetch(`https://localhost:3000/jobs/${job.id}`, options)
+        fetch(`http://localhost:3000/jobs/${job.id}`, options)
           .then(r => r.json())
           .then(r => console.log(r))
           .catch(error => console.log(error))
