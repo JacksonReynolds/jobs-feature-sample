@@ -10,7 +10,7 @@
     <EditJob @job-updated="fetchNewJob"/>
     <template v-for="job in filteredJobs">
       <EditJob v-if="job.id === editingJob" @job-updated="fetchUpdatedJob" :job="job" :key="job.id"/>
-      <ShowJob v-else @edit-job="toggleEditForm" :job="job" :key="job.id"/>
+      <ShowJob v-else @edit-job="toggleEditForm" @job-deleted="deleteJob" :job="job" :key="job.id"/>
     </template>
   </div>
 </template>
@@ -90,6 +90,24 @@
         } else {
           this.fetchNewJob(job)
         }
+      },
+      deleteJob(id) {
+        let options = {
+          method: "DELETE",
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({job: {id}})
+        }
+        fetch(`http://localhost:3000/jobs/${id}`, options)
+          .then(r => r.json())
+          .then(r => {
+            if (r.success) {
+              let i = this.jobs.findIndex(j => j.id === id)
+              this.jobs = [...this.jobs.slice(0, i), ...this.jobs.slice(i+1)]
+              this.updateCache()
+            } else {
+              alert(r.msg)
+            }
+          })
       },
       updateCache() {
         localStorage.jobs = JSON.stringify(this.jobs)
