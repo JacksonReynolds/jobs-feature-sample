@@ -34,8 +34,23 @@ export function fetchNewJob(job) {
     .then(r => r.json())
     .then(job => {
         this.jobs = [job, ...this.jobs]
-        this.updateCache(this.jobs)
+        updateCache(this.jobs)
       })
+}
+
+export function deleteJob(id) {
+  let options = {
+    method: "DELETE",
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({job: {id}})
+  }
+  fetch(`http://localhost:3000/jobs/${id}`, options)
+    .then(r => r.json())
+    .then(() => {
+        let i = this.jobs.findIndex(j => j.id === id)
+        this.jobs = [...this.jobs.slice(0, i), ...this.jobs.slice(i+1)]
+        updateCache(this.jobs)
+    })
 }
 
 const updateCache = (jobs) => {

@@ -31,7 +31,7 @@
 <script>
   import EditJob from './EditJob'
   import ShowJob from './ShowJob'
-  import {fetchJobs, fetchUpdatedJob, fetchNewJob} from '../JobsApiHelper.js'
+  import {fetchJobs, fetchUpdatedJob, fetchNewJob, deleteJob} from '../JobsApiHelper.js'
   
   export default {
     name: 'JobsIndex',
@@ -50,23 +50,7 @@
       fetchJobs,
       fetchUpdatedJob,
       fetchNewJob,
-      // fetchNewJob(job) {
-      //   let options = {
-      //     method: 'POST',
-      //     headers: {"Content-Type": 'application/json'},
-      //     body: JSON.stringify(job)
-      //   }
-      //   fetch('http://localhost:3000/jobs', options)
-      //     .then(r => r.json())
-      //     .then(job => {
-      //       if (!job.msg) {
-      //         this.jobs.unshift(job)
-      //         this.updateCache()
-      //       } else {
-      //         alert(job.msg)
-      //       }
-      //       })
-      // },
+      deleteJob,
       toggleEditForm(id) {
         this.editingJob = id
       },
@@ -77,24 +61,24 @@
           this.fetchNewJob(job)
         }
       },
-      deleteJob(id) {
-        let options = {
-          method: "DELETE",
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({job: {id}})
-        }
-        fetch(`http://localhost:3000/jobs/${id}`, options)
-          .then(r => r.json())
-          .then(r => {
-            if (r.success) {
-              let i = this.jobs.findIndex(j => j.id === id)
-              this.jobs = [...this.jobs.slice(0, i), ...this.jobs.slice(i+1)]
-              this.updateCache()
-            } else {
-              alert(r.msg)
-            }
-          })
-      },
+      // deleteJob(id) {
+      //   let options = {
+      //     method: "DELETE",
+      //     headers: {'Content-Type': 'application/json'},
+      //     body: JSON.stringify({job: {id}})
+      //   }
+      //   fetch(`http://localhost:3000/jobs/${id}`, options)
+      //     .then(r => r.json())
+      //     .then(r => {
+      //       if (r.success) {
+      //         let i = this.jobs.findIndex(j => j.id === id)
+      //         this.jobs = [...this.jobs.slice(0, i), ...this.jobs.slice(i+1)]
+      //         this.updateCache()
+      //       } else {
+      //         alert(r.msg)
+      //       }
+      //     })
+      // },
       updateCache() {
         localStorage.jobs = JSON.stringify(this.jobs)
       }
