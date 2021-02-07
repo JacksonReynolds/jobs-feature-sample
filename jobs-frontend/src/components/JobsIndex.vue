@@ -11,7 +11,7 @@
       @job-updated="fetchNewJob"
       @keydown.enter.prevent 
     />
-    <template v-for="job in filteredJobs">
+    <template v-for="job in jobsList">
       <EditJob v-if="job.id === editingJob" 
         @keydown.enter.prevent
         @job-updated="fetchUpdatedJob" 
@@ -31,6 +31,8 @@
 <script>
   import EditJob from './EditJob'
   import ShowJob from './ShowJob'
+  import {fetchJobs, fetchUpdatedJob, fetchNewJob} from '../JobsApiHelper.js'
+  
   export default {
     name: 'JobsIndex',
     components: {ShowJob, EditJob},
@@ -45,55 +47,26 @@
       localStorage.jobs ? this.jobs = JSON.parse(localStorage.jobs) : this.fetchJobs()
     },
     methods: {
-      fetchJobs() {
-        fetch('http://localhost:3000/jobs')
-          .then(r => r.json())
-          .then(jobs => {
-            this.jobs = jobs
-            this.updateCache()
-            })
-          .catch(() => {
-            alert(`Please check your server, reload, and try again`)
-          })
-      },
-      fetchUpdatedJob(job) {
-        let options = {
-          method: "PATCH",
-          headers: {"Content-Type": 'application/json'},
-          body: JSON.stringify(job)
-        }
-        fetch(`http://localhost:3000/jobs/${job.id}`, options)
-          .then(r => r.json())
-          .then(job => {
-            if (!job.msg) {
-              // update data with new job
-              let index = this.jobs.findIndex(j => j.id === job.id)
-              this.jobs = [...this.jobs.slice(0,index), job, ...this.jobs.slice(index+1)]
-
-              this.updateCache()
-              this.toggleEditForm(null)
-            } else {
-              alert(job.msg)
-            }
-            })
-      },
-      fetchNewJob(job) {
-        let options = {
-          method: 'POST',
-          headers: {"Content-Type": 'application/json'},
-          body: JSON.stringify(job)
-        }
-        fetch('http://localhost:3000/jobs', options)
-          .then(r => r.json())
-          .then(job => {
-            if (!job.msg) {
-              this.jobs.unshift(job)
-              this.updateCache()
-            } else {
-              alert(job.msg)
-            }
-            })
-      },
+      fetchJobs,
+      fetchUpdatedJob,
+      fetchNewJob,
+      // fetchNewJob(job) {
+      //   let options = {
+      //     method: 'POST',
+      //     headers: {"Content-Type": 'application/json'},
+      //     body: JSON.stringify(job)
+      //   }
+      //   fetch('http://localhost:3000/jobs', options)
+      //     .then(r => r.json())
+      //     .then(job => {
+      //       if (!job.msg) {
+      //         this.jobs.unshift(job)
+      //         this.updateCache()
+      //       } else {
+      //         alert(job.msg)
+      //       }
+      //       })
+      // },
       toggleEditForm(id) {
         this.editingJob = id
       },
@@ -127,7 +100,7 @@
       }
     },
     computed: {
-      filteredJobs() {
+      jobsList() {
         return (this.isFiltered ? this.jobs.filter(j => j.skills.find(s => s.toLowerCase().includes(this.filterTerm.toLowerCase()))) 
                                 : this.jobs)
       },
