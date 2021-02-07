@@ -6,7 +6,7 @@
       <ul>
         <li v-for="(skill, index) in skills" :key="index"><input type="text" v-model="skills[index]"></li>
         <li v-for="(skill, index) in newSkills" :key="index"><input type="text" v-model="newSkills[index]"></li>
-        <li id="new"><input type="text" v-model="newSkill"></li><button @click.prevent="buildSkill">+</button>
+        <li id="new"><input type="text" @change="buildSkill" v-model="newSkill"></li>
       </ul>
       <p>Description: <textarea cols="100" rows="3" v-model="description"></textarea></p>
       <input type="submit" value="Save">
@@ -34,8 +34,6 @@
       saveJob() {
         // add newSkills to skills array, and filter blank skill inputs
         this.skills = [...this.skills, ...this.newSkills].filter(s => s.trim() != '')
-        // filter out blank skill fields
-        // this.skills = this.skills.filter(s => s.trim() != '')
         // emit job-updated, passing updated fields
         this.$emit('job-updated', this.updatedJob)
         // reset form if new job
