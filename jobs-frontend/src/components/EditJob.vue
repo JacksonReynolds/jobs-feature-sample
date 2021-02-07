@@ -1,7 +1,7 @@
 <template>
   <div class="edit-job" :id="id">
     <form @submit.prevent="saveJob" action="#">
-      <p>Title: <input type="text" v-model="title"></p>
+      <p><strong>Title: </strong><input type="text" v-model="title"></p>
       <p>Skills:</p>
       <ul>
         <li v-for="(skill, index) in skills" :key="index"><input type="text" v-model="skills[index]"></li>
@@ -69,7 +69,7 @@
 <style scoped>
 .edit-job {
   border: 3px solid red;
-  border-radius: 5px;
+  border-radius: 10px;
   margin: 5px;
   padding: 5px;
 }

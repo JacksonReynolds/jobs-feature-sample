@@ -1,6 +1,6 @@
 <template>
     <div class="show-job" :id="job.id">
-      <p>Title: {{job.title}}</p>
+      <p><strong>Title: {{job.title}}</strong></p>
       <p>Skills:</p>
       <ul>
         <li v-for="skill in job.skills" :key="skill">{{skill}}</li>  
@@ -30,9 +30,11 @@
 
 <style scoped>
 .show-job {
-  border: 3px solid black;
-  border-radius: 5px;
+  border: 2px solid black;
+  border-radius: 10px;
   margin: 5px;
   padding: 5px;
+  background-color: lightsteelblue;
+
 }
 </style>

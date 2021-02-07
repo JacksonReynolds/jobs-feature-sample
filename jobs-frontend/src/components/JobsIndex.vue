@@ -146,5 +146,6 @@ header > input {
   background-color: aqua;
   height: 100%;
   border-radius: 15px;
+  border: 2px solid black;
 }
 </style>
