@@ -7,10 +7,23 @@
         <p v-if="isFiltered">Filtering on Skills, showing {{filteredJobs.length}} of {{jobs.length}} jobs.</p>
       </div>
     </header>
-    <EditJob @job-updated="fetchNewJob"/>
+    <EditJob 
+      @job-updated="fetchNewJob"
+      @keydown.enter.prevent 
+    />
     <template v-for="job in filteredJobs">
-      <EditJob v-if="job.id === editingJob" @job-updated="fetchUpdatedJob" :job="job" :key="job.id"/>
-      <ShowJob v-else @edit-job="toggleEditForm" @job-deleted="deleteJob" :job="job" :key="job.id"/>
+      <EditJob v-if="job.id === editingJob" 
+        @keydown.enter.prevent
+        @job-updated="fetchUpdatedJob" 
+        :job="job" 
+        :key="job.id"
+      />
+      <ShowJob v-else 
+        @edit-job="toggleEditForm" 
+        @job-deleted="deleteJob" 
+        :job="job" 
+        :key="job.id"
+      />
     </template>
   </div>
 </template>
