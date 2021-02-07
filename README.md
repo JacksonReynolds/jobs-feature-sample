@@ -12,5 +12,5 @@ A pretty simple single model Rails API built with a SQlite3 db at first, then sw
 
 ### Author
 
-Author: Jackson Reynolds
+Author: Jackson Reynolds | 
 [Github](https://github.com/JacksonReynolds) - [LinkedIn](https://www.linkedin.com/in/jackson-reynolds-8175a0196/)
