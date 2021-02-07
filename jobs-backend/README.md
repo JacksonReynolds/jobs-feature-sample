@@ -1,24 +1,23 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
 * Ruby version
 
-* System dependencies
+  2.6.1
 
-* Configuration
+* Dependencies
+
+  `bundle install`
 
 * Database creation
 
+  It's a Postgres server, so you'll need to start one on your machine, making sure you have the correct permissions to do so, then run
+  `rails db:create` from this directory to create it.
+
 * Database initialization
 
-* How to run the test suite
+  `rails db:migrate`
+  `rails db:seed`
 
-* Services (job queues, cache servers, search engines, etc.)
+* Server 
 
-* Deployment instructions
-
-* ...
+  `rails s`
