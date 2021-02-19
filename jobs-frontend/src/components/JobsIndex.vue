@@ -3,8 +3,8 @@
     <header id="jobs-index-header">
       <h1>Jobs Index</h1>
       <div>
-        Filter:<input v-model="filterTerm" @input="filterJobs">
-        <p v-if="isFiltered">Filtering on Skills, showing {{filteredJobs.length}} of {{jobs.length}} jobs.</p>
+        Filter:<input v-model="filterTerm" >
+        <p v-if="isFiltered">Filtering on Skills, showing {{jobsList.length}} of {{jobs.length}} jobs.</p>
       </div>
     </header>
     <EditJob 
@@ -64,7 +64,7 @@
     },
     computed: {
       jobsList() {
-        return (this.isFiltered ? this.jobs.filter(j => j.skills.find(s => s.toLowerCase().includes(this.filterTerm.toLowerCase()))) 
+        return (this.isFiltered ? this.jobs.filter(job => job.skills.find(skill => skill.toLowerCase().includes(this.filterTerm.toLowerCase()))) 
                                 : this.jobs)
       },
       isFiltered() {
