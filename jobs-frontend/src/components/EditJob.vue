@@ -2,11 +2,11 @@
   <div class="edit-job" :id="id">
     <form @submit.prevent="saveJob" action="#">
       <p><strong>Title: </strong><input type="text" v-model="title"></p>
-      <p>Skills:</p>
+      <p>Skills: <strong>press enter after editing a skill to create a new one</strong></p>
       <ul>
         <li v-for="(skill, index) in skills" :key="index"><input type="text" v-model="skills[index]"></li>
         <li v-for="(skill, index) in newSkills" :key="index"><input type="text" v-model="newSkills[index]"></li>
-        <li id="new"><input type="text" @change="buildSkill" v-model="newSkill"></li>
+        <li id="new"><input type="text" @keydown.enter="buildSkill" v-model="newSkill"></li>
       </ul>
       <p>Description: <textarea cols="100" rows="3" v-model="description"></textarea></p>
       <input type="submit" value="Save">
